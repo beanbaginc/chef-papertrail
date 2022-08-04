@@ -1,16 +1,23 @@
-case node['platform']
-when 'redhat', 'centos', 'amazon'
-  full_pkg_name = "remote_syslog2-#{node['papertrail']['version']}-1.x86_64.rpm"
-  pkg_name = 'remote_syslog2'
-when 'debian', 'ubuntu'
-  full_pkg_name = "remote-syslog2_#{node['papertrail']['version']}_amd64.deb"
-  pkg_name = 'remote-syslog2'
-else
-  raise "Unsupported platform: #{node['platform']}"
+version = node['papertrail']['version']
+full_pkg_name = node['papertrail']['package_url']
+pkg_name = node['papertrail']['package_name']
+
+if full_pkg_name.nil? or pkg_name.nil?
+  case node['platform']
+  when 'redhat', 'centos', 'amazon'
+    pkg_name = 'remote_syslog2'
+    pkg_arch = node['kernel']['machine']
+    full_pkg_name = "remote_syslog2-#{version}-1.#{pkg_arch}.rpm"
+  when 'debian', 'ubuntu'
+    full_pkg_name = "remote-syslog2_#{version}_amd64.deb"
+    pkg_name = 'remote-syslog2'
+  else
+    raise "Unsupported platform: #{node['platform']}"
+  end
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{full_pkg_name}" do
-  source "https://github.com/papertrail/remote_syslog2/releases/download/v#{node['papertrail']['version']}/#{full_pkg_name}"
+  source "https://github.com/papertrail/remote_syslog2/releases/download/v#{version}/#{full_pkg_name}"
   owner 'root'
   group 'root'
   mode '0644'

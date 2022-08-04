@@ -1,3 +1,5 @@
+node.default['papertrail']['package_name'] = nil
+node.default['papertrail']['package_url'] = nil
 node.default['papertrail']['files'] = []
 node.default['papertrail']['exclude_files'] = []
 node.default['papertrail']['hostname'] = nil
@@ -8,4 +10,4 @@ node.default['papertrail']['destination_protocol'] = 'tls'
 node.default['papertrail']['new_file_check_interval'] = nil
 node.default['papertrail']['facility'] = nil
 node.default['papertrail']['severity'] = nil
-node.default['papertrail']['version'] = '0.19'
+node.default['papertrail']['version'] = '0.21'

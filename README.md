@@ -1,17 +1,21 @@
 # Papertrail Cookbook
 
+This is a fork of the [official chef-papertrail
+repository](https://github.com/papertrail/chef-papertrail) that adds:
+
+* RPM-based Arm64 builds
+* Chef 17 compatibility
+* Newer `remote_syslog2` versions by default.
+
 This cookbook configures the Papertrail [remote_syslog2](https://github.com/papertrail/remote_syslog2) agent. To configure `rsyslog` for use with Papertrail, check out the [Papertrail documentation](http://help.papertrailapp.com/kb/configuration/configuring-remote-syslog-from-unixlinux-and-bsdos-x/).
 
 ## Supported Platforms
 
-* RHEL 6 / CentOS 6
-* RHEL 7 / CentOS 7
-* Amazon Linux 2017.03
-* Ubuntu 14.04
-* Ubuntu 16.04
-* Debian 9
+Our version of the cookbook has been tested on:
 
-This cookbook has been tested on Chef 13.x and 12.21.x.
+* Amazon Linux 2
+
+And Chef 17.
 
 ## Usage
 
@@ -161,4 +165,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 **License:** See [LICENSE](LICENSE.md)
 
-**Author:** Mike Julian (@mjulian)
+**Fork maintainer:** Christian Hammond (@chipx86)
+**Original author:** Mike Julian (@mjulian)

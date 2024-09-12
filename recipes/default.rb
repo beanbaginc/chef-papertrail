@@ -58,6 +58,28 @@ template '/etc/log_files.yml' do
   notifies :restart, 'service[remote_syslog]', :delayed
 end
 
+systemd_unit 'remote_syslog.service' do
+  action [:create, :enable]
+  content({
+    Unit: {
+      Description: 'remote_syslog',
+      After: 'network-online.target',
+    },
+
+    Service: {
+      ExecStartPre: '/usr/bin/test -e /etc/log_files.yml',
+      ExecStart: '/usr/local/bin/remote_syslog -D',
+      Restart: 'always',
+      User: 'root',
+      Group: 'root',
+    },
+
+    Install: {
+      WantedBy: 'multi-user.target',
+    },
+  })
+end
+
 service 'remote_syslog' do
   action [:start, :enable]
   subscribes :restart, 'package[#{pkg_name}]', :delayed
